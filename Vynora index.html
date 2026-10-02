@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreatorKit — Content Made Easy</title>
+  
+  <!-- Premium Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fdfaf5;
+      --surface: #ffffff;
+      --surface-2: #f5ede3;
+      --border: #ebdcca;
+      --text: #2a221b;
+      --muted: #817366;
+      --primary: #965d41;
+      --primary-dark: #77462f;
+      --accent: #d9a77d;
+      --success: #4a6b50;
+      --shadow: 0 12px 35px rgba(87, 61, 42, 0.06);
+      --radius: 16px;
+      --font-stack: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    nav {
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background: rgba(253, 250, 245, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav-inner {
+      max-width: 1080px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .badge-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .badge {
+      background: var(--surface-2);
+      color: var(--primary-dark);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .badge.outline {
+      background: transparent;
+      color: var(--muted);
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 70px 24px 40px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      padding: 6px 14px;
+      background: #f1e4d5;
+      border: 1px solid var(--border);
+      color: var(--primary-dark);
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      max-width: 580px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    /* ---------- MAIN GENERATOR ---------- */
+    .container {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto 80px;
+    }
+
+    .generator {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 32px;
+    }
+
+    .generator-top {
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .generator-top h2 {
+      font-size: 24px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .generator-top p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: var(--muted);
+      background: #f8f3eb;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px dashed var(--border);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #faf7f2;
+      color: var(--text);
+      padding: 14px 16px;
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input::placeholder {
+      color: #b5a89d;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(217, 167, 125, 0.15);
+      background: var(--surface);
+    }
+
+    .generate-btn {
+      width: 100%;
+      margin-top: 24px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(150, 93, 65, 0.2);
+    }
+
+    .generate-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(150, 93, 65, 0.3);
+    }
+
+    .generate-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ---------- RESULTS ---------- */
+    #results {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .results-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .results-heading h2 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .regenerate {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--primary-dark);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    
+    .regenerate:hover {
+      background: var(--surface-2);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(87, 61, 42, 0.03);
+    }
+
+    .result-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .copy-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--primary-dark);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    
+    .copy-btn:hover {
+      background: #ebdcca;
+    }
+
+    .copy-btn.copied {
+      background: #e1ede4;
+      border-color: #c2dcc8;
+      color: var(--success);
+    }
+
+    .result-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .result-list li {
+      background: #faf7f2;
+      border: 1px solid #efe4d7;
+      padding: 14px 16px;
+      border-radius: 10px;
+      color: #3b3028;
+      font-size: 14px;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .result-list li::after {
+      content: 'Click to copy';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .result-list li:hover {
+      background: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(217, 167, 125, 0.15);
+      padding-right: 90px;
+    }
+    
+    .result-list li:hover::after {
+      opacity: 1;
+    }
+    
+    .result-list li.copied {
+      background: #e1ede4;
+      border-color: #c2dcc8;
+      color: var(--success);
+    }
+    .result-list li.copied::after {
+      content: 'Copied!';
+      color: var(--success);
+      opacity: 1;
+    }
+
+    .description-box {
+      background: #faf7f2;
+      border: 1px solid #efe4d7;
+      padding: 16px;
+      border-radius: 12px;
+      color: #3b3028;
+      line-height: 1.6;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .hashtags {
+      color: var(--primary-dark);
+      line-height: 1.8;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      text-align: center;
+      padding: 30px 24px 60px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: var(--primary-dark);
+    }
+
+    /* ---------- MOBILE ---------- */
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+      .result-card.full {
+        grid-column: auto;
+      }
+      .generator-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 40px 20px 30px; }
+      .hero h1 { letter-spacing: -1px; }
+      .generator { padding: 20px; }
+      .result-list li:hover { padding-right: 16px; } /* Disable padding shift on mobile */
+      .result-list li::after { display: none; } /* Hide hover text on mobile */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">Creator<span>Kit</span></div>
+      <div class="badge-group">
+        <div class="badge outline">Offline App</div>
+        <div class="badge">Free V1.5</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">FOR SHORT-FORM CREATORS</div>
+    <h1>Turn ideas into <span>content.</span></h1>
+    <p>Generate hooks, captions, titles, hashtags and descriptions for your next piece of content instantly.</p>
+  </section>
+
+  <!-- GENERATOR -->
+  <main class="container">
+    <section class="generator">
+      <div class="generator-top">
+        <div>
+          <h2>What are you creating?</h2>
+          <p>Enter a topic and we'll build your content pack.</p>
+        </div>
+        <div class="disclaimer">
+          ⚡ <strong>Template Engine:</strong> Fast, local generation. No AI required.
+        </div>
+      </div>
+
+      <!-- Wrapped in a form for native submit/enter key handling -->
+      <form id="generator-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-grid">
+          <div class="field">
+            <label for="topic">Topic / Idea</label>
+            <input id="topic" type="text" placeholder="e.g. Morning Routine, Spider-Man edit" required />
+          </div>
+
+          <div class="field">
+            <label for="niche">Niche</label>
+            <select id="niche">
+              <option value="Entertainment">Entertainment</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Cars">Cars</option>
+              <option value="Anime">Anime</option>
+              <option value="Marvel">Marvel</option>
+              <option value="Fitness">Fitness</option>
+              <option value="Tech">Tech</option>
+              <option value="Education">Education</option>
+              <option value="Lifestyle">Lifestyle</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="contentType">Content Type</label>
+            <select id="contentType">
+              <option value="Shorts">YouTube Shorts</option>
+              <option value="Reel">Instagram Reel</option>
+              <option value="TikTok">TikTok</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="generate-btn">
+          Generate Content Pack →
+        </button>
+      </form>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results">
+      <div class="results-heading">
+        <h2>Your Content Pack</h2>
+        <button class="regenerate" onclick="generateContent()">↻ Regenerate Options</button>
+      </div>
+
+      <div class="results-grid">
+        <!-- HOOKS -->
+        <div class="result-card">
+          <div class="card-header">
+            <div class="card-title">🔥 Hooks</div>
+            <button class="copy-btn" onclick="copyCard('hooks', this)">Copy All</button>
+          </div>
+          <ul id="hooks" class="result-list"></ul>
+        </div>
+
+        <!-- TITLES -->
+        <div class="result-card">
+          <div class="card-header">
+            <div class="card-title">🎯 Titles</div>
+            <button class="copy-btn" onclick="copyCard('titles', this)">Copy All</button>
+          </div>
+          <ul id="titles" class="result-list"></ul>
+        </div>
+
+        <!-- CAPTIONS -->
+        <div class="result-card">
+          <div class="card-header">
+            <div class="card-title">✍️ Captions</div>
+            <button class="copy-btn" onclick="copyCard('captions', this)">Copy All</button>
+          </div>
+          <ul id="captions" class="result-list"></ul>
+        </div>
+
+        <!-- HASHTAGS -->
+        <div class="result-card">
+          <div class="card-header">
+            <div class="card-title">#️⃣ Hashtags</div>
+            <button class="copy-btn" onclick="copyCard('hashtags', this)">Copy</button>
+          </div>
+          <div id="hashtags" class="hashtags"></div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="result-card full">
+          <div class="card-header">
+            <div class="card-title">📌 Description</div>
+            <button class="copy-btn" onclick="copyCard('description', this)">Copy</button>
+          </div>
+          <div id="description" class="description-box"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built for creators • <strong>CreatorKit</strong> V1.5
+  </footer>
+
+  <script>
+    /* =========================================
+       FORM HANDLING
+       ========================================= */
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      generateContent();
+    }
+
+    /* =========================================
+       CONTENT GENERATOR
+       ========================================= */
+    function generateContent() {
+      const topicInput = document.getElementById("topic");
+      const niche = document.getElementById("niche").value;
+      const contentType = document.getElementById("contentType").value;
+      const topic = topicInput.value.trim();
+
+      if (!topic) return; // Form validation handles empty state now, but double check
+
+      /*
+       * Using more grammar-agnostic templates so verbs, singular nouns,
+       * and plural nouns all mostly make sense when dropped in.
+       */
+      const allHooks = [
+        `The truth about ${topic}.`,
+        `POV: You finally understand ${topic}.`,
+        `Why everyone is talking about ${topic}.`,
+        `Wait until you see this part of ${topic}.`,
+        `Nobody was ready for this ${topic} moment.`,
+        `The detail in ${topic} you probably missed.`,
+        `My honest thoughts on ${topic}.`,
+        `If you like ${topic}, watch this.`,
+        `One reason you need to look at ${topic}.`,
+        `Stop scrolling if you care about ${topic}.`
+      ];
+
+      const allTitles = [
+        `${topic} Explained 🔥`,
+        `The Best of ${topic}`,
+        `${topic} — This was insane`,
+        `You weren't ready for this: ${topic}`,
+        `Why ${topic} is taking over`,
+        `${topic} (Watch till the end)`,
+        `Everything you need to know about ${topic}`,
+        `The Ultimate ${topic} Breakdown`,
+        `${topic} in 60 seconds`,
+        `This changes everything about ${topic}`
+      ];
+
+      const allCaptions = [
+        `Thoughts on ${topic}? Let me know below. 👇`,
+        `Some things just hit different.`,
+        `Tell me I'm not the only one who thinks this.`,
+        `The vibe here is unreal.`,
+        `Still thinking about this.`,
+        `Would you agree? Drop a comment.`,
+        `Rate this 1–10 in the comments.`,
+        `This will never get old.`,
+        `Save this for later! 📌`,
+        `Tag someone who needs to see this.`
+      ];
+
+      const hashtagBase = {
+        Entertainment: "#entertainment #viral #foryou #fyp #shorts",
+        Gaming: "#gaming #gamer #gamingcommunity #viral #shorts",
+        Cars: "#cars #carculture #supercars #carsofinstagram #shorts",
+        Anime: "#anime #animefan #otaku #weeb #shorts",
+        Marvel: "#marvel #mcu #superhero #comicbooks #shorts",
+        Fitness: "#fitness #motivation #workout #gymtok #shorts",
+        Tech: "#tech #technology #gadgets #technews #shorts",
+        Education: "#education #learning #studyhacks #knowledge #shorts",
+        Lifestyle: "#lifestyle #dailyvlog #life #aesthetic #shorts"
+      };
+
+      const customHashtag = `#${makeHashtag(topic)}`;
+      const hashtags = `${hashtagBase[niche] || "#viral #fyp #shorts"} ${customHashtag}`;
+
+      const description = `Watch this ${contentType} about ${topic} and let me know what you think in the comments.\n\nIf you enjoyed it, drop a like and subscribe for more ${niche.toLowerCase()} content!\n\n${customHashtag} ${hashtagBase[niche] || "#viral #shorts"}`;
+
+      // Render 3 random items per list so it's not overwhelming
+      renderList("hooks", getRandomSubset(allHooks, 3));
+      renderList("titles", getRandomSubset(allTitles, 3));
+      renderList("captions", getRandomSubset(allCaptions, 3));
+
+      document.getElementById("hashtags").textContent = hashtags;
+      document.getElementById("description").textContent = description;
+
+      const resultsSection = document.getElementById("results");
+      resultsSection.style.display = "block";
+      
+      // Smooth scroll with a slight delay to allow rendering
+      setTimeout(() => {
+        resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+
+    /* =========================================
+       HELPERS
+       ========================================= */
+    function getRandomSubset(array, size) {
+      const shuffled = [...array].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, size);
+    }
+
+    function makeHashtag(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]/g, "");
+    }
+
+    /* =========================================
+       DOM RENDERING & INDIVIDUAL COPY
+       ========================================= */
+    function renderList(elementId, items) {
+      const element = document.getElementById(elementId);
+      element.innerHTML = "";
+
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        
+        // Add click-to-copy functionality for individual items
+        li.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(item);
+            li.classList.add("copied");
+            setTimeout(() => li.classList.remove("copied"), 1500);
+          } catch (err) {
+            console.error("Failed to copy text: ", err);
+          }
+        });
+        
+        element.appendChild(li);
+      });
+    }
+
+    /* =========================================
+       COPY ALL FUNCTION (Card Headers)
+       ========================================= */
+    async function copyCard(id, button) {
+      const element = document.getElementById(id);
+      let text = "";
+
+      if (element.tagName === "UL") {
+        text = [...element.querySelectorAll("li")]
+          .map((item) => item.textContent.replace("Click to copy", "").replace("Copied!", "").trim())
+          .join("\n");
+      } else {
+        text = element.textContent;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const originalText = button.textContent;
+        button.textContent = "Copied ✓";
+        button.classList.add("copied");
+
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove("copied");
+        }, 1500);
+      } catch (error) {
+        alert("Copy failed. Please select the text manually.");
+      }
+    }
+  </script>
+</body>
+</html>
+        
