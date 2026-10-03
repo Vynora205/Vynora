@@ -674,6 +674,59 @@
     </div>
 
   </div>
+<!-- EDIT TOOL -->
+<section id="edit-tool" class="generator tool-generator">
+  <div class="generator-top">
+    <div>
+      <h2>🎬 Edit Generator</h2>
+      <p>Plan your edit with concepts, transitions, effects and timing.</p>
+    </div>
+
+    <div class="disclaimer">
+      ⚡ <strong>Fast Local Tool:</strong> No AI required.
+    </div>
+  </div>
+
+  <form id="edit-form" onsubmit="handleEditSubmit(event)">
+    <div class="form-grid">
+
+      <div class="field">
+        <label for="editTopic">What are you editing?</label>
+        <input
+          id="editTopic"
+          type="text"
+          placeholder="e.g. Spider-Man, BMW M4, Anime fight"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label for="editStyle">Edit Style</label>
+        <select id="editStyle">
+          <option value="Cinematic">Cinematic</option>
+          <option value="Phonk">Phonk</option>
+          <option value="Fast">Fast & Aggressive</option>
+          <option value="Emotional">Emotional</option>
+          <option value="Minimal">Minimal & Clean</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="editPlatform">Platform</label>
+        <select id="editPlatform">
+          <option value="Shorts">YouTube Shorts</option>
+          <option value="Reel">Instagram Reel</option>
+          <option value="TikTok">TikTok</option>
+        </select>
+      </div>
+
+    </div>
+
+    <button type="submit" class="generate-btn">
+      Generate Edit Plan →
+    </button>
+  </form>
+</section>
 </section>
   <!-- GENERATOR -->
   <main class="container">
