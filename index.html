@@ -143,7 +143,121 @@
       font-size: 17px;
       line-height: 1.6;
     }
+/* ---------- CREATOR TOOLS ---------- */
+.tools-section {
+  max-width: 1080px;
+  margin: 20px auto 70px;
+  padding: 0 20px;
+}
 
+.tools-heading {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.tools-heading > span {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.tools-heading h2 {
+  font-size: 30px;
+  letter-spacing: -0.8px;
+  margin-bottom: 8px;
+}
+
+.tools-heading p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 5px 20px rgba(87, 61, 42, 0.04);
+  transition: all 0.25s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(87, 61, 42, 0.09);
+  border-color: var(--accent);
+}
+
+.tool-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 21px;
+  margin-bottom: 18px;
+}
+
+.tool-card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.tool-card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 62px;
+  margin-bottom: 18px;
+}
+
+.tool-card button {
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0;
+}
+
+.tool-card button:hover {
+  color: var(--primary-dark);
+}
+
+@media (max-width: 900px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .tools-section {
+    margin-bottom: 50px;
+  }
+
+  .tools-heading h2 {
+    font-size: 25px;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-card p {
+    min-height: auto;
+  }
+}
     /* ---------- MAIN GENERATOR ---------- */
     .container {
       width: min(1080px, calc(100% - 40px));
@@ -465,7 +579,54 @@
     <h1>Turn ideas into <span>content.</span></h1>
     <p>Generate hooks, captions, titles, hashtags and descriptions for your next piece of content instantly.</p>
   </section>
+<!-- CREATOR TOOLS -->
+<section class="tools-section">
+  <div class="tools-heading">
+    <span>CREATOR TOOLS</span>
+    <h2>Everything you need to create.</h2>
+    <p>Choose a tool and turn your idea into something worth posting.</p>
+  </div>
 
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <div class="tool-icon">🎬</div>
+      <h3>Edit</h3>
+      <p>Get editing ideas, transitions, effects, overlays and video flow.</p>
+      <button onclick="alert('Edit Tool coming next!')">
+        Open Tool →
+      </button>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">🎵</div>
+      <h3>Music</h3>
+      <p>Find the right music style, mood and beat moments for your content.</p>
+      <button onclick="alert('Music Tool coming next!')">
+        Open Tool →
+      </button>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">📝</div>
+      <h3>Blog</h3>
+      <p>Create blog titles, outlines, introductions and SEO-friendly ideas.</p>
+      <button onclick="alert('Blog Tool coming next!')">
+        Open Tool →
+      </button>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">🎥</div>
+      <h3>Vlog</h3>
+      <p>Plan your vlog with hooks, shots, story flow and talking points.</p>
+      <button onclick="alert('Vlog Tool coming next!')">
+        Open Tool →
+      </button>
+    </div>
+
+  </div>
+</section>
   <!-- GENERATOR -->
   <main class="container">
     <section class="generator">
