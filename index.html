@@ -847,7 +847,160 @@
     function handleFormSubmit(event) {
       event.preventDefault();
       generateContent();
-    }
+    } /* =========================================
+   EDIT TOOL
+   ========================================= */
+
+function handleEditSubmit(event) {
+  event.preventDefault();
+  generateEditPlan();
+}
+
+function generateEditPlan() {
+  const topic = document.getElementById("editTopic").value.trim();
+  const style = document.getElementById("editStyle").value;
+  const platform = document.getElementById("editPlatform").value;
+
+  if (!topic) return;
+
+  const editIdeas = {
+    Cinematic: [
+      `Start with a slow close-up of ${topic}.`,
+      `Use a dramatic reveal as the main moment.`,
+      `Build the edit from slow shots into a strong final sequence.`
+    ],
+    Phonk: [
+      `Start with a short buildup before the beat drops.`,
+      `Sync fast cuts with the main beat.`,
+      `Use speed ramps and impact cuts on the strongest moments.`
+    ],
+    Fast: [
+      `Open with the strongest shot immediately.`,
+      `Use quick cuts every 0.5–1.5 seconds.`,
+      `Finish with the most powerful moment of ${topic}.`
+    ],
+    Emotional: [
+      `Begin with a calm establishing shot.`,
+      `Let the first few clips breathe before building emotion.`,
+      `End with the most meaningful moment of ${topic}.`
+    ],
+    Minimal: [
+      `Keep transitions simple and clean.`,
+      `Use subtle zooms and smooth cuts.`,
+      `Let the footage remain the main focus.`
+    ]
+  };
+
+  const transitions = [
+    "Smooth zoom transition",
+    "Whip-pan transition",
+    "Motion blur cut",
+    "Match cut",
+    "Beat cut",
+    "Flash transition"
+  ];
+
+  const effects = [
+    "Subtle shake on impact",
+    "Speed ramp",
+    "Motion blur",
+    "Film grain",
+    "Light glow",
+    "Slow zoom"
+  ];
+
+  const overlays = [
+    `Short text overlay introducing ${topic}`,
+    "One-word impact text on the beat",
+    "Minimal subtitle-style text",
+    "POV text overlay",
+    "Final statement on the last shot"
+  ];
+
+  const sequence = [
+    "0–2s — Strong opening / attention grab",
+    "2–5s — Build the visual story",
+    "5–8s — Main moment",
+    "8–11s — Beat drop / strongest transition",
+    "11–15s — Final shot + ending text"
+  ];
+
+  const plan = `
+EDIT CONCEPT
+${editIdeas[style].join("\n")}
+
+TRANSITIONS
+${getRandomSubset(transitions, 3).join("\n")}
+
+EFFECTS
+${getRandomSubset(effects, 3).join("\n")}
+
+TEXT / OVERLAYS
+${getRandomSubset(overlays, 3).join("\n")}
+
+EDIT SEQUENCE
+${sequence.join("\n")}
+
+PLATFORM
+${platform}
+
+STYLE
+${style}
+  `.trim();
+
+  showEditResult(plan);
+}
+
+function showEditResult(text) {
+  let result = document.getElementById("edit-result");
+
+  if (!result) {
+    result = document.createElement("section");
+    result.id = "edit-result";
+    result.className = "result-card full";
+    
+    document.getElementById("edit-tool").appendChild(result);
+  }
+
+  result.innerHTML = `
+    <div class="card-header">
+      <div class="card-title">🎬 Your Edit Plan</div>
+      <button class="copy-btn" onclick="copyEditPlan(this)">Copy</button>
+    </div>
+
+    <div id="edit-plan-text" class="description-box"></div>
+  `;
+
+  document.getElementById("edit-plan-text").textContent = text;
+
+  setTimeout(() => {
+    result.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 50);
+}
+
+async function copyEditPlan(button) {
+  const text = document.getElementById("edit-plan-text").textContent;
+
+  try {
+    await navigator.clipboard.writeText(text);
+
+    const originalText = button.textContent;
+    button.textContent = "Copied ✓";
+    button.classList.add("copied");
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove("copied");
+    }, 1500);
+
+  } catch (error) {
+    alert("Copy failed. Please select the text manually.");
+  }
+}
+
 
     /* =========================================
        CONTENT GENERATOR
