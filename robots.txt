@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vynora205.github.io/Vynora/sitemap.xml
