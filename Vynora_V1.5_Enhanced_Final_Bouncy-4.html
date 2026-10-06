@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta name="google-site-verification"
+content="QaEvDf9YzenscJwcd5bN7ZF5ZjGLs7_apQL5NeBd530">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Vynora | Creator Content Toolkit</title>
+   <meta name="description" content="Vynora is a premium free creator toolkit for content
+ideas, hooks, titles, captions, edit plans, music ideas, blog outlines and vlog plans.">
+   <meta name="robots" content="index, follow, max-image-preview:large">
+   <link rel="canonical" href="https://vynora205.github.io/Vynora/">
+   <meta name="theme-color" content="#FAFAF8">
+   
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="Vynora | Free Creator Content Toolkit">
+   <meta property="og:description" content="Create hooks, titles, captions, edit ideas, music
+directions, blog outlines and vlog plans with Vynora.">
+   <meta property="og:url" content="https://vynora205.github.io/Vynora/">
+   <meta property="og:site_name" content="Vynora">
+   
+   <meta name="twitter:card" content="summary">
+   <meta name="twitter:title" content="Vynora | Free Creator Content Toolkit">
+   <meta name="twitter:description" content="Free creator tools for turning ideas into content.">
+   
+   <link rel="icon" type="image/png" href="vynora-icon.png">
+
+<style>
+/*
+========================================================================
+==
+   CONFIG & VARIABLES (Premium Warm Palette)
+
+========================================================================
+== */
+:root {
+   --bg: #FAFAF8; 
+   --surface: #FFFFFF;
+   --surface-soft: #F7F5F0;
+   --surface-hover: #F2EFE8;
+   
+   --text: #2C241B; 
+   --text-muted: #7A6F62;
+   --border: #E8E2D9;
+   
+   --accent-primary: #8C5E45; 
+   --accent-strong: #6B4531;
+   --accent-secondary: #BFA082;
+    --accent-gold: #C99E56; 
+    --accent-cocoa: #5E402E; 
+    --accent-soft: #E8DFD3;
+    
+    --success: #5D7964;
+    --danger: #A65D53;
+
+    /* Shadows */
+    --shadow-sm: 0 4px 12px rgba(60, 45, 30, 0.04);
+    --shadow: 0 12px 32px rgba(60, 45, 30, 0.06);
+    --shadow-hover: 0 20px 48px rgba(60, 45, 30, 0.12);
+    --shadow-btn: 0 8px 24px rgba(140, 94, 69, 0.2);
+    --shadow-btn-hover: 0 12px 32px rgba(140, 94, 69, 0.35);
+
+    --radius: 16px;
+    --radius-sm: 10px;
+
+    /* Animation */
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15);
+    --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out: cubic-bezier(0.21, 0.83, 0.26, 1);
+    
+    --duration-fast: 0.3s;
+    --duration-normal: 0.6s;
+    --duration-slow: 0.9s;
+    --reveal-distance: 30px;
+    --motion-bounce: cubic-bezier(0.16, 1.2, 0.3, 1);
+   --motion-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+========================================================================
+==
+   RESET & BASE
+
+========================================================================
+== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+   background: var(--bg);
+   color: var(--text);
+   min-height: 100vh;
+   -webkit-font-smoothing: antialiased;
+   text-rendering: optimizeLegibility;
+   overflow-x: hidden;
+   line-height: 1.6;
+}
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; border: none; background: none; }
+
+/*
+========================================================================
+==
+   MOTION SYSTEM
+
+========================================================================
+== */
+.reveal-up { 
+   opacity: 0; 
+   transform: translateY(var(--reveal-distance)); 
+   transition: opacity 0.62s var(--ease-out), transform 0.72s var(--motion-bounce); 
+}
+.reveal-scale { 
+   opacity: 0; 
+   transform: scale(0.96) translateY(15px);
+   transition: opacity 0.52s var(--ease-out), transform 0.52s var(--motion-spring); 
+}
+.reveal-soft { 
+   opacity: 0; 
+   transition: opacity var(--duration-slow) var(--ease-smooth); 
+}
+
+.is-visible { 
+   opacity: 1 !important; 
+   transform: translate(0,0) scale(1) !important; 
+}
+
+/* Stagger Utilities */
+.stagger-container > * { 
+   opacity: 0; 
+   transform: translateY(20px);
+   transition: opacity 0.58s var(--ease-out), transform 0.68s var(--motion-bounce); 
+}
+.stagger-container.is-visible > * { 
+   opacity: 1; 
+   transform: translateY(0); 
+}
+.stagger-container.is-visible > *:nth-child(1) { transition-delay: 20ms; }
+.stagger-container.is-visible > *:nth-child(2) { transition-delay: 85ms; }
+.stagger-container.is-visible > *:nth-child(3) { transition-delay: 150ms; }
+.stagger-container.is-visible > *:nth-child(4) { transition-delay: 215ms; }
+.stagger-container.is-visible > *:nth-child(5) { transition-delay: 280ms; }
+.stagger-container.is-visible > *:nth-child(6) { transition-delay: 345ms; }
+.stagger-container.is-visible > *:nth-child(7) { transition-delay: 410ms; }
+.stagger-container.is-visible > *:nth-child(8) { transition-delay: 475ms; }
+
+@keyframes shimmer {
+   0% { transform: translateX(-100%); }
+   100% { transform: translateX(100%); }
+}
+@keyframes spin {
+   to { transform: rotate(360deg); }
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -4px, 0) rotate(-1deg); }
+}
+
+@keyframes softPulse {
+  0%, 100% { opacity: .82; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.025); }
+}
+
+.tool-card .icon {
+  animation: iconFloat 3.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.tool-card:nth-child(2) .icon { animation-delay: .18s; }
+.tool-card:nth-child(3) .icon { animation-delay: .36s; }
+.tool-card:nth-child(4) .icon { animation-delay: .54s; }
+.tool-card:nth-child(5) .icon { animation-delay: .72s; }
+
+.tool-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(201,158,86,.10), transparent 42%);
+  transition: opacity .5s ease;
+}
+.tool-card:hover::after { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tool-card.is-visible { animation: cardPop .72s var(--motion-bounce) both; }
+}
+
+@keyframes cardPop {
+  0% { opacity: 0; transform: translate3d(0, 30px, 0) scale(.965); }
+  65% { opacity: 1; transform: translate3d(0, -5px, 0) scale(1.008); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+   *, .reveal-up, .reveal-scale, .reveal-soft, .stagger-container > * {
+       animation: none !important;
+       transition: none !important;
+       transform: none !important;
+       opacity: 1 !important;
+       scroll-behavior: auto !important;
+   }
+}
+
+/*
+========================================================================
+==
+   LAYOUT & HEADER
+
+========================================================================
+== */
+nav {
+   position: sticky; top: 0; z-index: 50;
+   border-bottom: 1px solid transparent;
+   background: rgba(250, 250, 248, 0);
+   transition: all 0.4s var(--ease-smooth);
+}
+nav.scrolled {
+   background: rgba(250, 250, 248, 0.85);
+   backdrop-filter: blur(12px);
+   -webkit-backdrop-filter: blur(12px);
+   border-bottom: 1px solid var(--border);
+}
+nav.scrolled .nav { padding: 12px 24px; }
+.nav {
+   max-width: 1080px; margin: auto; padding: 24px;
+   display: flex; justify-content: space-between; align-items: center;
+   transition: padding 0.4s var(--ease-smooth);
+}
+.logo { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; color: var(--accent-strong); }
+.badges { display: flex; gap: 8px; }
+.badge { 
+  padding: 6px 14px; border-radius: 99px; border: 1px solid var(--border); 
+  background: var(--surface-soft); color: var(--accent-strong); 
+  font-size: 12px; font-weight: 700; transition: all 0.2s var(--ease-spring); 
+}
+.badge.outline { background: transparent; color: var(--text-muted); }
+
+/*
+========================================================================
+==
+   HERO
+
+========================================================================
+== */
+.hero { max-width: 860px; margin: auto; text-align: center; padding: 100px 24px 80px; position:
+relative; }
+.label, .tools-heading > span { 
+   display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; 
+   color: var(--accent-primary); margin-bottom: 16px; text-transform: uppercase; 
+}
+.hero .label { 
+   padding: 6px 16px; background: var(--surface); border: 1px solid var(--border); 
+   border-radius: 99px; box-shadow: var(--shadow-sm); color: var(--accent-strong);
+}
+.hero h1 { 
+   font-size: clamp(40px, 7vw, 76px); line-height: 1.05; letter-spacing: -1.5px; 
+   margin: 16px 0 24px; font-weight: 800; color: var(--text);
+}
+.hero h1 span { color: var(--accent-primary); }
+.hero p { max-width: 640px; margin: auto; color: var(--text-muted); font-size: 20px; line-height:
+1.6; }
+
+.tools, .container, .info, .smart-tools { 
+   width: min(1080px, calc(100% - 48px)); 
+   margin-left: auto; margin-right: auto; margin-bottom: 100px;
+}
+.tools-heading { text-align: center; margin-bottom: 48px; }
+.tools-heading h2 { font-size: 38px; letter-spacing: -1px; margin-bottom: 16px; }
+.tools-heading p { color: var(--text-muted); font-size: 17px; }
+
+/*
+========================================================================
+==
+   CARDS & GRID
+
+========================================================================
+== */
+.tool-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; }
+
+ .tool-card, .generator, .result-card, .info-card, .smart-card {
+   background: var(--surface); border: 1px solid var(--border);
+   box-shadow: var(--shadow); border-radius: var(--radius);
+}
+.tool-card {
+   padding: 28px 24px; position: relative; overflow: hidden;
+   display: flex; flex-direction: column;
+   transition: transform 0.55s var(--motion-bounce), border-color 0.35s ease, box-shadow 0.55s var(--ease-smooth);
+}
+.tool-card::before {
+   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+   background: var(--card-accent, var(--border)); transition: background 0.3s ease;
+}
+ .tool-card:hover { 
+   transform: translateY(-8px) scale(1.01); 
+   border-color: var(--accent-secondary); box-shadow: var(--shadow-hover); 
+}
+.tool-card:active { transform: translateY(-1px) scale(0.985); transition-duration: 0.14s; }
+
+.featured-card { 
+   --card-accent: var(--accent-gold); 
+   background: linear-gradient(180deg, var(--surface), #FCFBF8); 
+   border-color: var(--accent-secondary); 
+}
+.featured-card:hover { --card-accent: var(--accent-primary); }
+
+.icon { 
+   width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; 
+   background: var(--surface-soft); border: 1px solid var(--border); border-radius: 14px; 
+   font-size: 26px; margin-bottom: 24px; transition: transform 0.65s var(--motion-bounce); 
+}
+.tool-card:hover .icon { transform: translateY(-5px) scale(1.14) rotate(-4deg); }
+
+.tool-card h3 { font-size: 20px; margin-bottom: 10px; font-weight: 700; line-height: 1.3; }
+.tool-card p { color: var(--text-muted); font-size: 14px; min-height: 66px; margin-bottom: 24px;
+flex-grow: 1; }
+
+.secondary-btn, .tool-card button, .regenerate, .copy-btn, .favorite-btn {
+   border: 1px solid var(--border); background: var(--surface-soft); color: var(--accent-strong);
+   padding: 12px 18px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
+   transition: all 0.3s var(--ease-spring); position: relative; overflow: hidden;
+   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.secondary-btn:hover, .tool-card button:hover, .regenerate:hover, .copy-btn:hover,
+.favorite-btn:hover {
+   background: var(--surface-hover); transform: translateY(-3px); box-shadow:
+var(--shadow-sm); 
+   border-color: var(--accent-secondary);
+}
+.secondary-btn:active, .tool-card button:active, .copy-btn:active, .favorite-btn:active {
+   transform: translateY(0) scale(0.97);
+}
+
+/*
+========================================================================
+==
+   GENERATORS & FORMS
+
+========================================================================
+== */
+.generator { padding: 48px; margin-bottom: 48px; border-radius: 24px; position: relative; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap:
+wrap; margin-bottom: 40px; }
+.top h2 { font-size: 32px; margin-bottom: 10px; letter-spacing: -0.5px; color: var(--text); }
+.top p { color: var(--text-muted); font-size: 16px; }
+
+.note { 
+    font-size: 13px; color: var(--text-muted); background: var(--surface-soft); 
+    padding: 8px 16px; border-radius: 10px; border: 1px dashed var(--border); 
+    display: flex; align-items: center; gap: 6px; 
+}
+.grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; }
+.field { display: flex; flex-direction: column; gap: 12px; }
+.field label { font-size: 14px; font-weight: 700; color: var(--accent-strong); }
+
+input, select, textarea {
+    width: 100%; border: 1.5px solid var(--border); background: var(--surface-soft); color:
+var(--text);
+    padding: 16px 20px; border-radius: 14px; outline: none; font-size: 16px;
+    transition: all 0.3s var(--ease-spring);
+}
+input:focus, select:focus, textarea:focus {
+    border-color: var(--accent-primary); background: var(--surface);
+    box-shadow: 0 0 0 4px rgba(140, 94, 69, 0.1); transform: translateY(-2px);
+}
+textarea { min-height: 150px; resize: vertical; }
+
+.generate {
+    width: 100%; margin-top: 40px; background: var(--accent-primary); color: #fff;
+    padding: 22px 28px; border-radius: 14px; font-size: 17px; font-weight: 700;
+    box-shadow: var(--shadow-btn); transition: transform 0.4s var(--ease-spring),
+background-color 0.2s ease, box-shadow 0.4s ease;
+    position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
+gap: 12px;
+}
+.generate:hover { 
+   background: var(--accent-strong); transform: translateY(-4px); box-shadow:
+var(--shadow-btn-hover); 
+}
+.generate:active { transform: translateY(1px) scale(0.98); box-shadow: var(--shadow-sm); }
+.generate::after {
+   content: ""; position: absolute; inset:0; background: linear-gradient(100deg, transparent,
+rgba(255,255,255,0.2), transparent);
+   transform: translateX(-100%); pointer-events: none;
+}
+.generate:hover::after { animation: shimmer 1.5s ease infinite; }
+
+.generate.spinner { display: none; width: 20px; height: 20px; border: 3px solid
+rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; }
+.generate.loading { pointer-events: none; background: var(--accent-strong); transform:
+scale(0.98); box-shadow: var(--shadow-sm); }
+.generate.loading .spinner { display: block; animation: spin 0.8s linear infinite; }
+
+/*
+========================================================================
+==
+   RESULTS & ACCENT SYSTEM
+
+========================================================================
+== */
+.results { display: none; margin-top: 64px; }
+.result-head { display: flex; justify-content: space-between; align-items: center; gap: 16px;
+margin-bottom: 32px; }
+.result-head h2 { font-size: 28px; letter-spacing: -0.5px; }
+.result-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+.result-card {
+   padding: 32px; position: relative; overflow: hidden;
+   transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease;
+}
+.result-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+
+/* Strict Accent Colors based on palette */
+.result-card[data-type="hooks"] { --accent-color: var(--accent-gold); }
+.result-card[data-type="titles"] { --accent-color: var(--accent-cocoa); }
+.result-card[data-type="captions"] { --accent-color: var(--accent-secondary); }
+.result-card[data-type="hashtags"] { --accent-color: var(--text-muted); }
+.result-card[data-type="description"] { --accent-color: var(--accent-strong); }
+.result-card[data-type="angle"] { --accent-color: var(--accent-gold); }
+.result-card[data-type="shortIdea"] { --accent-color: var(--accent-primary); }
+.result-card[data-type="alternates"] { --accent-color: var(--accent-secondary); }
+
+.result-card::before {
+   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  background: var(--accent-color, var(--border));
+}
+
+.full { grid-column: 1 / -1; }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 16px;
+margin-bottom: 24px; padding-left: 8px; }
+.card-title { font-weight: 700; font-size: 19px; display: flex; align-items: center; gap: 10px; color:
+var(--text); }
+
+.copy-btn { padding: 10px 16px; font-size: 13px; }
+.copy-btn.copied { background: var(--success); color: #fff; border-color: var(--success);
+transform: scale(1.05); }
+
+.list { list-style: none; display: flex; flex-direction: column; gap: 14px; padding-left: 8px; }
+.list li {
+    background: var(--surface-soft); border: 1px solid var(--border); padding: 20px 24px;
+    border-radius: 14px; font-size: 16px; line-height: 1.6; cursor: pointer;
+    transition: transform 0.4s var(--ease-spring), background-color 0.2s ease, border-color 0.2s
+ease, box-shadow 0.2s ease;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+}
+.list li:hover { 
+    background: var(--surface); border-color: var(--accent-color, var(--accent-primary)); 
+    transform: translateX(6px) scale(1.01); box-shadow: var(--shadow-sm); 
+}
+.list li:active { transform: translateX(2px) scale(0.99); }
+.list li.copied { background: #F0F4F1; border-color: var(--success); }
+
+.idea-text { flex: 1; min-width: 0; color: var(--text); }
+.favorite-btn { padding: 8px 14px; font-size: 12px; opacity: 0; transition: opacity 0.3s ease,
+background 0.3s ease; }
+.list li:hover .favorite-btn { opacity: 1; }
+
+.box { 
+    background: var(--surface-soft); border: 1px solid var(--border); padding: 24px; border-radius:
+14px; 
+    white-space: pre-wrap; margin-left: 8px; line-height: 1.8; font-size: 16px; 
+    transition: background 0.3s ease, border-color 0.3s ease; 
+}
+.box:hover { background: var(--surface); border-color: var(--accent-color, var(--border)); }
+
+.hashtags { 
+    color: var(--accent-strong); line-height: 1.8; font-size: 16px; font-weight: 500; 
+    margin-left: 8px; padding: 20px; background: var(--surface-soft); border-radius: 14px; 
+}
+
+/*
+========================================================================
+==
+ SMART TOOLS & INFO
+
+========================================================================
+== */
+.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.info-card { padding: 36px; transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease;
+border-top: 5px solid var(--accent-soft); }
+.info-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover);
+border-top-color: var(--accent-primary); }
+.info-card h3 { font-size: 21px; margin-bottom: 14px; }
+.info-card p { color: var(--text-muted); font-size: 16px; line-height: 1.7; }
+
+.smart-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.smart-card { padding: 36px; display: flex; flex-direction: column; transition: transform 0.4s
+var(--ease-spring); }
+.smart-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.smart-card h3 { font-size: 22px; margin-bottom: 14px; }
+.smart-card > p { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 28px;
+}
+
+.score-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
+padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 16px; }
+.score-row:last-child { border-bottom: 0; }
+.score { font-weight: 800; color: var(--accent-strong); background: var(--surface-soft); padding:
+8px 14px; border-radius: 10px; }
+
+.history-list { display: flex; flex-direction: column; gap: 14px; max-height: 400px; overflow-y: auto;
+padding-right: 8px; flex-grow: 1; }
+.history-item { 
+   padding: 20px; border: 1px solid var(--border); background: var(--surface-soft); border-radius:
+14px; 
+   font-size: 15px; line-height: 1.6; transition: transform 0.4s var(--ease-spring), background 0.3s
+ease, border-color 0.3s; 
+}
+.history-item:hover { background: var(--surface); border-color: var(--accent-primary); transform:
+translateX(6px); box-shadow: var(--shadow-sm); }
+.history-item strong { display: block; margin-bottom: 8px; color: var(--text); font-size: 16px; }
+
+.smart-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; padding-top: 20px;
+border-top: 1px solid var(--border); }
+
+footer { text-align: center; border-top: 1px solid var(--border); padding: 60px 24px 80px; color:
+var(--text-muted); font-size: 15px; }
+footer strong { color: var(--accent-strong); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent-secondary); border-radius: 5px; border: 2px
+solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-strong); }
+
+/*
+========================================================================
+==
+   RESPONSIVE
+
+========================================================================
+== */
+@media (max-width: 1024px) {
+   .tool-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 950px) {
+   .info-grid, .smart-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+   .tool-grid { grid-template-columns: repeat(2, 1fr); }
+   .grid, .result-grid { grid-template-columns: 1fr; }
+   .full { grid-column: auto; }
+   .top { flex-direction: column; align-items: flex-start; gap: 20px; }
+   .hero { padding: 80px 20px 60px; }
+   .hero h1 { font-size: 44px; }
+   .generator, .smart-card, .info-card, .result-card { padding: 28px; }
+}
+@media (max-width: 480px) {
+   .nav { padding: 16px; }
+   .badge { padding: 6px 12px; font-size: 11px; }
+   .hero h1 { letter-spacing: -1px; font-size: 38px; }
+   .tools, .container, .info, .smart-tools { width: calc(100% - 32px); margin-bottom: 70px; }
+   .tool-grid { grid-template-columns: 1fr; }
+   .generator, .smart-card, .info-card, .result-card { padding: 24px; }
+   .result-head { align-items: flex-start; flex-direction: column; gap: 16px; }
+   .card-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+   .list li { flex-direction: column; }
+   .favorite-btn { align-self: flex-start; opacity: 1; }
+   .result-card::before { top: 0; bottom: 0; width: 4px; border-radius: 0; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Vynora",
+  "url": "https://vynora205.github.io/Vynora/",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web Browser",
+  "description": "Premium creator tools for hooks, titles, captions, edit plans, music ideas, blogs
+and vlogs."
+}
+</script>
+</head>
+<body>
+
+<nav id="mainNav" aria-label="Main Navigation">
+   <div class="nav">
+      <div class="logo">Vynora</div>
+      <div class="badges">
+         <div class="badge outline">Toolkit</div>
+         <div class="badge">V1.5</div>
+      </div>
+   </div>
+</nav>
+
+<main>
+   <header class="hero reveal-up">
+      <div class="label">For Creators</div>
+      <h1>Turn ideas into <span>content.</span></h1>
+      <p>Plan, write, and shape your next piece of content with intuitive, platform-aware creator
+tools—all locally in your browser.</p>
+   </header>
+
+   <section class="tools" id="tools" aria-label="Creator Tools Selection">
+      <div class="tools-heading reveal-scale">
+         <span>Creator Tools</span>
+         <h2>Everything you need to create.</h2>
+         <p>Choose a tool and turn your idea into optimized content.</p>
+      </div>
+      <div class="tool-grid stagger-container reveal-up">
+
+         <div class="tool-card featured-card">
+           <div class="icon" aria-hidden="true">✨</div>
+           <h3>Content Pack</h3>
+           <p>Generate hooks, titles, captions, hashtags, and descriptions tuned for discovery.</p>
+           <button class="magnetic-btn" onclick="UI.scrollTo('content-generator')" aria-label="Open Content Pack Tool">Open Tool →</button>
+         </div>
+
+         <div class="tool-card">
+           <div class="icon" aria-hidden="true">🎬</div>
+           <h3>Edit</h3>
+           <p>Get visual editing ideas, pacing, transitions, overlays, and video flow.</p>
+           <button class="magnetic-btn" onclick="UI.scrollTo('edit-tool')" aria-label="Open Edit Tool">Open Tool →</button>
+         </div>
+
+         <div class="tool-card">
+           <div class="icon" aria-hidden="true">🎧</div>
+           <h3>Music</h3>
+           <p>Match your content with a genre, mood, beat structure, and pacing.</p>
+           <button class="magnetic-btn" onclick="UI.scrollTo('music-tool')" aria-label="Open Music Tool">Open Tool →</button>
+         </div>
+
+         <div class="tool-card">
+           <div class="icon" aria-hidden="true">📝</div>
+           <h3>Blog</h3>
+           <p>Create structured blog outlines, introductions, SEO ideas, and CTAs.</p>
+           <button class="magnetic-btn" onclick="UI.scrollTo('blog-tool')" aria-label="Open Blog Tool">Open Tool →</button>
+         </div>
+
+         <div class="tool-card">
+           <div class="icon" aria-hidden="true">📹</div>
+           <h3>Vlog</h3>
+           <p>Plan your vlog with sequences, shot ideas, story arcs, and talking points.</p>
+           <button class="magnetic-btn" onclick="UI.scrollTo('vlog-tool')" aria-label="Open Vlog Tool">Open Tool →</button>
+         </div>
+
+     </div>
+  </section>
+
+  <div class="container">
+     <!-- CONTENT GENERATOR -->
+     <section id="content-generator" class="generator reveal-up" aria-label="Content Pack
+Generator">
+        <div class="top">
+           <div>
+             <h2>Content Pack Generator</h2>
+             <p>Hooks, titles, captions, angles, short-form ideas, and hashtags tuned to your
+concept.</p>
+           </div>
+           <div class="note" aria-label="Powered by local engine">Local Engine</div>
+        </div>
+        <form onsubmit="GENERATORS.content(event)">
+           <div class="grid stagger-container reveal-soft">
+             <div class="field">
+                <label for="topic">Topic / Idea</label>
+                <input id="topic" placeholder="e.g. Spider-Man edit, 10kg bicep curl" required>
+             </div>
+             <div class="field">
+                <label for="niche">Niche</label>
+                <select id="niche">
+                   <option>Edits</option>
+                   <option>Entertainment</option>
+                   <option>Gaming</option>
+                   <option>Cars</option>
+                   <option>Anime</option>
+                   <option>Fitness</option>
+                   <option>Tech</option>
+                   <option>Education</option>
+                   <option>Travel</option>
+                   <option>Lifestyle</option>
+                   <option>Business</option>
+                   <option>Food</option>
+                </select>
+             </div>
+             <div class="field">
+                <label for="contentType">Platform</label>
+                <select id="contentType">
+                   <option>YouTube Shorts</option>
+                   <option>Instagram Reel</option>
+                   <option>TikTok</option>
+                   <option>YouTube (Long)</option>
+                   <option>X / Twitter</option>
+                </select>
+             </div>
+           </div>
+           <button class="generate magnetic-btn reveal-scale" type="submit">
+             <span class="spinner"></span>
+             <span class="btn-text">Craft Content Pack →</span>
+           </button>
+        </form>
+        
+        <div id="content-out" class="results" aria-live="polite">
+           <div class="result-head reveal-soft">
+             <h2>Your Content Pack</h2>
+             <button class="regenerate" onclick="GENERATORS.content(event)">⟳
+Regenerate</button>
+           </div>
+           <div class="result-grid stagger-container">
+             
+             <div class="result-card" data-type="hooks">
+                <div class="card-head">
+                   <div class="card-title">Hooks</div>
+                   <button class="copy-btn" onclick="UI.copyList('hooks', this)">Copy
+All</button>
+               </div>
+               <ul id="hooks" class="list"></ul>
+             </div>
+             
+             <div class="result-card" data-type="titles">
+               <div class="card-head">
+                  <div class="card-title">Titles</div>
+                  <button class="copy-btn" onclick="UI.copyList('titles', this)">Copy All</button>
+               </div>
+               <ul id="titles" class="list"></ul>
+             </div>
+             
+             <div class="result-card" data-type="captions">
+               <div class="card-head">
+                  <div class="card-title">Captions</div>
+                  <button class="copy-btn" onclick="UI.copyList('captions', this)">Copy
+All</button>
+               </div>
+               <ul id="captions" class="list"></ul>
+             </div>
+             
+             <div class="result-card" data-type="hashtags">
+               <div class="card-head">
+                  <div class="card-title">Hashtags</div>
+                  <button class="copy-btn" onclick="UI.copyBlock('hashtags',
+this)">Copy</button>
+               </div>
+               <div id="hashtags" class="hashtags"></div>
+             </div>
+             
+             <div class="result-card full" data-type="description">
+               <div class="card-head">
+                  <div class="card-title">Description Structure</div>
+                  <button class="copy-btn" onclick="UI.copyBlock('description',
+this)">Copy</button>
+               </div>
+               <div id="description" class="box"></div>
+             </div>
+             
+             <div class="result-card" data-type="angle">
+               <div class="card-head">
+                  <div class="card-title">Content Angle</div>
+                  <button class="copy-btn" onclick="UI.copyBlock('angle', this)">Copy</button>
+               </div>
+               <div id="angle" class="box"></div>
+             </div>
+             
+             <div class="result-card" data-type="shortIdea">
+                 <div class="card-head">
+                    <div class="card-title">Execution Idea</div>
+                    <button class="copy-btn" onclick="UI.copyBlock('shortIdea',
+this)">Copy</button>
+                 </div>
+                 <div id="shortIdea" class="box"></div>
+              </div>
+              
+              <div class="result-card full" data-type="alternates">
+                 <div class="card-head">
+                    <div class="card-title">Alternates</div>
+                    <button class="copy-btn" onclick="UI.copyBlock('alternates',
+this)">Copy</button>
+                 </div>
+                 <div id="alternates" class="box"></div>
+              </div>
+              
+            </div>
+         </div>
+      </section>
+
+      <!-- EDIT TOOL -->
+      <section id="edit-tool" class="generator reveal-up" aria-label="Edit Plan Generator">
+         <div class="top">
+            <div>
+              <h2>Edit Generator</h2>
+              <p>Build a practical edit plan, pacing, and visual transitions.</p>
+            </div>
+            <div class="note">Local Engine</div>
+         </div>
+         <form onsubmit="GENERATORS.edit(event)">
+            <div class="grid stagger-container reveal-soft">
+              <div class="field">
+                 <label for="editTopic">Subject</label>
+                 <input id="editTopic" placeholder="e.g. Porsche 911 GT3, Travel vlog intro"
+required>
+              </div>
+              <div class="field">
+                 <label for="editStyle">Edit Style</label>
+                 <select id="editStyle">
+                    <option>Cinematic</option>
+                    <option>Phonk / Aggressive</option>
+                    <option>Minimal & Clean</option>
+                    <option>Emotional</option>
+                    <option>Trending POV</option>
+                    <option>Documentary</option>
+                 </select>
+              </div>
+             <div class="field">
+               <label for="editPlatform">Format</label>
+               <select id="editPlatform">
+                  <option>YouTube Shorts</option>
+                  <option>Instagram Reel</option>
+                  <option>TikTok</option>
+                  <option>YouTube Long</option>
+               </select>
+             </div>
+          </div>
+          <button class="generate magnetic-btn reveal-scale" type="submit">
+             <span class="spinner"></span>
+             <span class="btn-text">Generate Edit Plan →</span>
+          </button>
+       </form>
+       <div id="edit-out" class="results" aria-live="polite"></div>
+     </section>
+
+     <!-- MUSIC TOOL -->
+     <section id="music-tool" class="generator reveal-up" aria-label="Music Generator">
+        <div class="top">
+           <div>
+             <h2>Music Generator</h2>
+             <p>Find a musical direction, tempo, and mood to anchor your edit.</p>
+           </div>
+           <div class="note">Vibe & Search ideas</div>
+        </div>
+        <form onsubmit="GENERATORS.music(event)">
+           <div class="grid stagger-container reveal-soft">
+             <div class="field">
+                <label for="musicTopic">Visual Context</label>
+                <input id="musicTopic" placeholder="e.g. Late night drive, intense gym session"
+required>
+             </div>
+             <div class="field">
+                <label for="musicMood">Mood</label>
+                <select id="musicMood">
+                   <option>Hype</option>
+                   <option>Dark & Gritty</option>
+                   <option>Emotional / Cinematic</option>
+                   <option>Chill & Lo-Fi</option>
+                   <option>Energetic</option>
+                   <option>Epic</option>
+                   <option>Dreamy / Ambient</option>
+                </select>
+             </div>
+             <div class="field">
+                <label for="musicPlatform">Platform</label>
+              <select id="musicPlatform">
+                 <option>YouTube Shorts</option>
+                 <option>Instagram Reel</option>
+                 <option>TikTok</option>
+              </select>
+            </div>
+         </div>
+         <button class="generate magnetic-btn reveal-scale" type="submit">
+            <span class="spinner"></span>
+            <span class="btn-text">Generate Music Direction →</span>
+         </button>
+      </form>
+      <div id="music-out" class="results" aria-live="polite"></div>
+    </section>
+
+     <!-- BLOG TOOL -->
+     <section id="blog-tool" class="generator reveal-up" aria-label="Blog Generator">
+        <div class="top">
+           <div>
+             <h2>Blog Generator</h2>
+             <p>Turn a rough topic into a structured outline and SEO concepts.</p>
+           </div>
+           <div class="note">Local Engine</div>
+        </div>
+        <form onsubmit="GENERATORS.blog(event)">
+           <div class="grid stagger-container reveal-soft">
+             <div class="field">
+                <label for="blogTopic">Core Subject</label>
+                <input id="blogTopic" placeholder="e.g. Best 50mm lenses, Morning habits"
+required>
+             </div>
+             <div class="field">
+                <label for="blogType">Format</label>
+                <select id="blogType">
+                   <option>Guide</option>
+                   <option>Listicle</option>
+                   <option>Review</option>
+                   <option>How-To</option>
+                   <option>Comparison</option>
+                   <option>Opinion</option>
+                </select>
+             </div>
+             <div class="field">
+                <label for="blogAudience">Audience</label>
+                <select id="blogAudience">
+                   <option>Beginners</option>
+                   <option>Creators</option>
+                   <option>Students</option>
+                 <option>Tech Users</option>
+                 <option>General Audience</option>
+              </select>
+            </div>
+         </div>
+         <button class="generate magnetic-btn reveal-scale" type="submit">
+            <span class="spinner"></span>
+            <span class="btn-text">Generate Blog Plan →</span>
+         </button>
+      </form>
+      <div id="blog-out" class="results" aria-live="polite"></div>
+    </section>
+
+     <!-- VLOG TOOL -->
+     <section id="vlog-tool" class="generator reveal-up" aria-label="Vlog Generator">
+        <div class="top">
+           <div>
+             <h2>Vlog Generator</h2>
+             <p>Plan your narrative arc, a-roll shots, and sequences before recording.</p>
+           </div>
+           <div class="note">Local Engine</div>
+        </div>
+        <form onsubmit="GENERATORS.vlog(event)">
+           <div class="grid stagger-container reveal-soft">
+             <div class="field">
+                <label for="vlogTopic">Vlog Concept</label>
+                <input id="vlogTopic" placeholder="e.g. Studio makeover, 24 hours in Tokyo"
+required>
+             </div>
+             <div class="field">
+                <label for="vlogStyle">Style</label>
+                <select id="vlogStyle">
+                   <option>Daily Life</option>
+                   <option>Travel / Exploration</option>
+                   <option>Challenge</option>
+                   <option>Behind The Scenes</option>
+                   <option>Storytelling</option>
+                   <option>Study / Productivity</option>
+                </select>
+             </div>
+             <div class="field">
+                <label for="vlogLength">Target Length</label>
+                <select id="vlogLength">
+                   <option>Short (1-3 min)</option>
+                   <option>Medium (5-10 min)</option>
+                   <option>Long (10+ min)</option>
+                </select>
+             </div>
+            </div>
+            <button class="generate magnetic-btn reveal-scale" type="submit">
+              <span class="spinner"></span>
+              <span class="btn-text">Generate Vlog Plan →</span>
+            </button>
+         </form>
+         <div id="vlog-out" class="results" aria-live="polite"></div>
+      </section>
+    </div>
+
+   <section class="smart-tools" aria-label="Vynora smart tools">
+      <div class="tools-heading reveal-scale">
+        <span>Smart Tools</span>
+        <h2>Refine before you publish.</h2>
+        <p>Save concepts, evaluate clarity, and A/B test variations.</p>
+      </div>
+      <div class="smart-grid stagger-container reveal-up">
+        
+        <!-- ANALYZER -->
+        <div class="smart-card" id="analyzer-tool">
+            <h3>Content Analyzer</h3>
+            <p>Heuristic evaluation for clarity, curiosity, and specificity. (Not a viral predictor).</p>
+            <textarea id="analyzerInput" placeholder="Paste a title, hook, or caption here..."
+aria-label="Content to analyze"></textarea>
+            <button class="secondary-btn magnetic-btn" style="margin-top:16px; align-self:
+flex-start;" onclick="SMART.analyzeContent()">Evaluate Content</button>
+            <div id="analyzerOutput" style="margin-top: 24px" aria-live="polite"></div>
+        </div>
+        
+        <!-- A/B TESTER -->
+        <div class="smart-card" id="ab-tool">
+            <h3>A/B Title Tester</h3>
+            <p>Compare two versions using foundational copywriting heuristics.</p>
+            <input id="abA" placeholder="Option A" aria-label="Version A">
+            <input id="abB" placeholder="Option B" style="margin-top: 14px" aria-label="Version
+B">
+            <button class="secondary-btn magnetic-btn" style="margin-top:16px; align-self:
+flex-start;" onclick="SMART.testAB()">Compare Options</button>
+            <div id="abOutput" style="margin-top:24px" aria-live="polite"></div>
+        </div>
+        
+        <!-- FAVORITES -->
+        <div class="smart-card" id="favorites-tool">
+            <h3>Favorites</h3>
+            <p>Saved ideas and generated text. Stored locally.</p>
+            <div id="favoritesList" class="history-list">
+               <div class="history-item">No favorites saved yet.</div>
+            </div>
+           <div class="smart-actions">
+              <button class="secondary-btn" onclick="STORAGE.clearFavorites()">Clear
+Favorites</button>
+           </div>
+        </div>
+        
+        <!-- HISTORY -->
+        <div class="smart-card" id="history-tool">
+           <h3>Generation Log</h3>
+           <p>Your recent tool sessions. Stored locally.</p>
+           <div id="historyList" class="history-list">
+              <div class="history-item">No history available.</div>
+           </div>
+           <div class="smart-actions">
+              <button class="secondary-btn" onclick="STORAGE.clearHistory()">Clear
+Log</button>
+           </div>
+        </div>
+        
+      </div>
+   </section>
+
+   <section class="info">
+      <div class="tools-heading reveal-scale">
+        <span>Platform Principles</span>
+        <h2>Premium. Fast. Reliable.</h2>
+        <p>Built for the modern creator workflow.</p>
+      </div>
+      <div class="info-grid stagger-container reveal-up">
+        <div class="info-card">
+           <h3>Instant Availability</h3>
+           <p>No mandatory accounts, API keys, or loading screens. Generates clean ideas
+instantly on your device.</p>
+        </div>
+        <div class="info-card">
+           <h3>Practical Architecture</h3>
+           <p>Produces usable, structured starting points rather than overly complex, generic
+walls of text.</p>
+        </div>
+        <div class="info-card">
+           <h3>Complete Ecosystem</h3>
+           <p>Combines short-form, editing, music direction, and long-form planning into a
+unified, premium UI.</p>
+        </div>
+      </div>
+   </section>
+</main>
+
+<footer>Built for modern creators · <strong>Vynora</strong> V1.5</footer>
+
+<script>
+/**
+ * VYNORA V1.5 - PREMIUM ARCHITECTURE
+ * 1. CONFIG: AI & Motion settings
+ * 2. UTILS: Helpers, DOM, Security
+ * 3. STORAGE: LocalStorage management
+ * 4. UI: Animations, Scrolling, Copy
+ * 5. ENGINE: Niche profiles, Emojis, Core logic
+ * 6. GENERATORS: Tool bindings
+ * 7. SMART: Analyzer, A/B logic
+ * 8. BOOT: Initialization
+ */
+
+/*
+========================================================================
+==
+   1. CONFIG
+
+========================================================================
+== */
+const CONFIG = {
+    version: "1.5",
+    motion: {
+        delayMin: 520,
+        delayMax: 760,
+        reduced: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        loadingMessages: [
+           "Crafting ideas...", "Analyzing context...", "Refining wording...", 
+           "Optimizing structure...", "Polishing results..."
+        ]
+    },
+    ai: {
+        enabled: false, // Architectural abstraction for future API
+        provider: "none",
+        fallbackToLocal: true
+    }
+};
+
+/*
+========================================================================
+==
+   2. UTILITIES
+
+========================================================================
+== */
+const UTILS = {
+    pickUnique: (arr, n) => {
+        const pool = [...arr], out = [];
+        while (pool.length && out.length < n) {
+           out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+        }
+        return out;
+    },
+    escapeHTML: (str) => {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    },
+    randomDelay: () => Math.floor(Math.random() * (CONFIG.motion.delayMax -
+CONFIG.motion.delayMin + 1)) + CONFIG.motion.delayMin,
+    sleep: (ms) => new Promise(r => setTimeout(r, ms))
+};
+
+/*
+========================================================================
+==
+   3. STORAGE
+
+========================================================================
+== */
+const STORAGE = {
+  get: (key, fallback) => {
+      try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+      catch(e) { return fallback; }
+  },
+  set: (key, value) => {
+      try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+      catch(e) { return false; }
+  },
+  saveHistory: (item) => {
+      let a = STORAGE.get('vynora_history', []);
+      a = [item, ...a.filter(x => !(x.topic === item.topic && x.niche === item.niche))].slice(0, 20);
+      STORAGE.set('vynora_history', a);
+      STORAGE.renderHistory();
+  },
+  renderHistory: () => {
+      const box = document.getElementById('historyList');
+      if(!box) return;
+      const a = STORAGE.get('vynora_history', []);
+      if (a.length) {
+          box.innerHTML = '';
+          a.forEach(x => {
+             const div = document.createElement('div');
+             div.className = 'history-item reveal-soft is-visible';
+               div.innerHTML = `<strong>${UTILS.escapeHTML(x.topic)} —
+${UTILS.escapeHTML(x.niche)}</strong>${UTILS.escapeHTML(x.platform)}<br><small
+style="color: var(--text-muted)">${new Date(x.createdAt).toLocaleString()}</small>`;
+               box.appendChild(div);
+           });
+       } else {
+           box.innerHTML = '<div class="history-item">No generations yet.</div>';
+       }
+   },
+   clearHistory: () => { STORAGE.set('vynora_history', []); STORAGE.renderHistory(); },
+   
+   saveFavorite: (text, type, btn) => {
+       let a = STORAGE.get('vynora_favorites', []);
+       if(!a.some(x => x.text === text)) {
+           a = [{text, type, createdAt: new Date().toISOString()}, ...a].slice(0, 50);
+           STORAGE.set('vynora_favorites', a);
+           STORAGE.renderFavorites();
+           if (btn) {
+               const originalText = btn.innerHTML;
+               btn.innerHTML = 'Saved ✓';
+               btn.style.color = 'var(--accent-strong)';
+               setTimeout(() => { btn.innerHTML = originalText; btn.style.color = ''; }, 2000);
+           }
+       }
+   },
+   renderFavorites: () => {
+       const box = document.getElementById('favoritesList');
+       if(!box) return;
+       const a = STORAGE.get('vynora_favorites', []);
+       if (a.length) {
+           box.innerHTML = '';
+           a.forEach((x, i) => {
+               const div = document.createElement('div');
+               div.className = 'history-item reveal-soft is-visible';
+               div.innerHTML =
+`<strong>${UTILS.escapeHTML(x.type)}</strong>${UTILS.escapeHTML(x.text)}<br><button
+class="secondary-btn" style="margin-top:14px; padding: 6px 12px; font-size: 12px;"
+onclick="STORAGE.removeFavorite(${i})">Remove</button>`;
+               box.appendChild(div);
+           });
+       } else {
+           box.innerHTML = '<div class="history-item">No favorites saved yet.</div>';
+       }
+   },
+   removeFavorite: (i) => {
+       let a = STORAGE.get('vynora_favorites', []);
+       a.splice(i, 1);
+       STORAGE.set('vynora_favorites', a);
+    STORAGE.renderFavorites();
+  },
+  clearFavorites: () => { STORAGE.set('vynora_favorites', []); STORAGE.renderFavorites(); }
+};
+
+/*
+========================================================================
+==
+   4. UI & MOTION
+
+========================================================================
+== */
+const UI = {
+   observer: null,
+   initScrollAnimations: () => {
+      if (CONFIG.motion.reduced) { document.querySelectorAll('.reveal-up, .reveal-scale, .reveal-soft, .stagger-container').forEach(el => el.classList.add('is-visible')); return; }
+      UI.observer = new IntersectionObserver((entries, observer) => {
+         entries.forEach(entry => { if (!entry.isIntersecting) return; entry.target.classList.add('is-visible'); observer.unobserve(entry.target); });
+      }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+      document.querySelectorAll('.reveal-up, .reveal-scale, .reveal-soft, .stagger-container').forEach(el => UI.observer.observe(el));
+      const nav = document.getElementById('mainNav');
+      window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+         document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            let raf = 0, pointer = null;
+            btn.addEventListener('mousemove', e => { pointer = e; if (raf) return; raf = requestAnimationFrame(() => { raf = 0; if (!pointer) return; const rect = btn.getBoundingClientRect(); const x = (pointer.clientX - rect.left - rect.width / 2) * 0.10; const y = (pointer.clientY - rect.top - rect.height / 2) * 0.10; btn.style.transform = `translate3d(${x}px, ${y}px, 0) scale(1.015)`; }); }, { passive: true });
+            btn.addEventListener('mouseleave', () => { pointer = null; if (raf) cancelAnimationFrame(raf); raf = 0; btn.style.transform = ''; });
+         });
+      }
+   },
+    scrollTo: (id) => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: CONFIG.motion.reduced ? 'auto' : 'smooth', block: 'start'
+});
+    },
+    animateLoading: async (btn, resultContainerId) => {
+        if(!btn) return;
+        
+        // Hide previous results if they exist to make the transition feel new
+        if (resultContainerId) {
+            const container = document.getElementById(resultContainerId);
+            if (container && container.style.display === 'block') {
+                container.style.opacity = '0';
+                setTimeout(() => { container.style.display = 'none'; container.style.opacity = '1'; }, 300);
+            }
+        }
+
+        const textSpan = btn.querySelector('.btn-text');
+        const originalText = textSpan ? textSpan.textContent : btn.textContent;
+        const messages = CONFIG.motion.loadingMessages;
+        let i = 0;
+        
+        btn.classList.add('loading');
+        if (textSpan) textSpan.textContent = messages[0];
+        
+        const timer = setInterval(() => {
+            i = (i + 1) % messages.length;
+            if (textSpan) {
+                textSpan.style.opacity = 0;
+                setTimeout(() => {
+                   textSpan.textContent = messages[i];
+                   textSpan.style.opacity = 1;
+                }, 150);
+            }
+        }, 450);
+
+        await UTILS.sleep(UTILS.randomDelay());
+        
+        clearInterval(timer);
+        btn.classList.remove('loading');
+  if (textSpan) {
+      textSpan.textContent = originalText;
+      textSpan.style.opacity = 1;
+  }
+},
+revealResults: (id) => {
+    const el = document.getElementById(id);
+    el.style.display = 'block';
+    el.style.opacity = '1';
+    
+    // Force reflow for clean stagger
+    void el.offsetWidth;
+    
+    el.querySelectorAll('.result-head, .result-grid').forEach(child => {
+        child.classList.remove('is-visible');
+        setTimeout(() => child.classList.add('is-visible'), 50);
+    });
+    
+    setTimeout(() => UI.scrollTo(id), 100);
+},
+copyText: async (t) => {
+    try {
+        if (navigator.clipboard && window.isSecureContext) { 
+            await navigator.clipboard.writeText(t); 
+            return true; 
+        }
+        let x = document.createElement('textarea'); x.value = t;
+        x.style.position = 'fixed'; x.style.opacity = '0';
+        document.body.appendChild(x); x.select();
+        document.execCommand('copy'); x.remove(); 
+        return true;
+    } catch(e) { return false; }
+},
+feedbackButton: (b, originalText) => {
+    b.innerHTML = 'Copied ✓';
+    b.classList.add('copied');
+    setTimeout(() => { 
+        b.innerHTML = originalText;
+        b.classList.remove('copied'); 
+    }, 2000);
+},
+copyList: async (id, btn) => {
+    const list = document.getElementById(id);
+    const texts = Array.from(list.querySelectorAll('.idea-text')).map(el => el.textContent);
+    if (texts.length === 0) return;
+    if (await UI.copyText(texts.join('\n\n'))) UI.feedbackButton(btn, 'Copy All');
+    else alert('Copy failed.');
+},
+  copyBlock: async (id, btn) => {
+      const text = document.getElementById(id).textContent;
+      if(!text) return;
+      if (await UI.copyText(text)) UI.feedbackButton(btn, 'Copy');
+      else alert('Copy failed.');
+  },
+  renderToolBlock: (id, title, text) => {
+      const el = document.getElementById(id);
+      el.innerHTML = `
+          <div class="result-head reveal-soft">
+             <h2>${UTILS.escapeHTML(title)}</h2>
+          </div>
+          <div class="result-grid stagger-container">
+             <div class="result-card full" data-type="description">
+                <div class="card-head">
+                   <div class="card-title">${UTILS.escapeHTML(title)}</div>
+                   <button class="copy-btn" onclick="UI.copyBlock('${id}-text', this)">Copy</button>
+                </div>
+                <div id="${id}-text" class="box">${UTILS.escapeHTML(text)}</div>
+             </div>
+          </div>`;
+      UI.revealResults(id);
+  }
+};
+
+/*
+========================================================================
+==
+   5. ENGINE
+
+========================================================================
+== */
+const ENGINE = {
+  generateContentPack: async (topic, niche, platform) => {
+     if (CONFIG.ai.enabled) {
+         try {
+            // Backend AI Layer Abstraction
+         } catch (e) {
+            console.warn("AI Generation failed. Gracefully falling back to local heuristic engine.");
+         }
+     }
+     
+     const typeMap = { 'Edits': 'edits', 'Cars': 'cars', 'Anime': 'anime', 'Gaming': 'gaming',
+'Education': 'study', 'Fitness': 'fitness', 'Tech': 'tech', 'Travel': 'travel', 'Lifestyle': 'lifestyle',
+'Entertainment': 'general', 'Business': 'business', 'Food': 'food' };
+     const type = typeMap[niche] || 'general';
+     
+     const profiles = {
+       edits:{icon:['🎬','⚡','✨'],tags:['#edits','#videoedit','#editingtips'],hook:'the strongest visual moment',title:'the edit people replay',cap:'Built around the moment.',hooks:[`POV: ${topic} hits different when the edit lands.`,`Wait for the ${topic} switch.`,`One cut changed the entire ${topic} sequence.`,`This is how ${topic} should feel.`]},
+       cars:{icon:['🏁','🚗','💨'],tags:['#cars','#automotive','#carculture'],hook:'the detail most viewers miss',title:'pure automotive energy',cap:'Design, sound, and presence.',hooks:[`The detail on ${topic} that changes everything.`,`POV: you finally see why ${topic} stands out.`,`Listen closely — ${topic} speaks for itself.`,`Would you take ${topic} for a drive?`]},
+       anime:{icon:['⚔️','🔥','✨'],tags:['#anime','#animeedit','#otaku'],hook:'the defining character moment',title:'the scene that deserves a replay',cap:'One scene. Maximum impact.',hooks:[`POV: ${topic} enters its final form.`,`This ${topic} moment still hits.`,`The detail in this ${topic} scene is insane.`,`One frame explains ${topic} perfectly.`]},
+       gaming:{icon:['🎮','⚡','🏆'],tags:['#gaming','#gamer','#gamingclips'],hook:'the clutch moment',title:'the play worth replaying',cap:'Clean play. Better timing.',hooks:[`POV: ${topic} goes from normal to clutch.`,`The ${topic} play nobody expected.`,`One decision changed this ${topic} match.`,`Would you make this ${topic} play?`]},
+       fitness:{icon:['💪','🏋️','🔥'],tags:['#fitness','#workout','#fitnesstips'],hook:'the most useful movement or cue',title:'a practical fitness breakdown',cap:'Simple, focused, actionable.',hooks:[`The ${topic} detail most beginners overlook.`,`If you're working on ${topic}, watch this.`,`One adjustment can change your ${topic} session.`,`The practical side of ${topic}, explained.`]},        tech:{icon:['📱','💻','⚙️'],tags:['#tech','#technology','#techtips'],hook:'the feature that matters',title:'the tech detail worth knowing',cap:'Useful tech, without the fluff.',hooks:[`The ${topic} feature you should actually know.`,`Before buying ${topic}, check this.`,`The ${topic} detail most people miss.`,`Is ${topic} actually worth it?`]},        travel:{icon:['✈️','🌍','📍'],tags:['#travel','#travelguide','#wanderlust'],hook:'the most memorable place or moment',title:'a trip worth remembering',cap:'Places, moments, and practical details.',hooks:[`A closer look at ${topic} worth saving.`,`POV: you finally experience ${topic}.`,`The ${topic} spot I would not skip.`,`What nobody tells you about ${topic}.`]},        lifestyle:{icon:['☕','✨','🌿'],tags:['#lifestyle','#dailylife','#routine'],hook:'the most relatable moment',title:'a lifestyle idea that feels real',cap:'Simple moments, better storytelling.',hooks:[`A realistic take on ${topic}.`,`POV: ${topic} becomes part of your routine.`,`The small ${topic} change that feels different.`,`What ${topic} actually looks like day to day.`]},        study:{icon:['📚','🧠','✍️'],tags:['#study','#studytips','#students'],hook:'the key concept or mistake',title:'a study idea students can use',cap:'Clear, practical, exam-focused.',hooks:[`The ${topic} mistake students keep making.`,`If ${topic} feels confusing, start here.`,`The fastest way to make ${topic} clearer.`,`One ${topic} trick worth remembering.`]},        business:{icon:['📈','💼','🎯'],tags:['#business','#strategy','#growth'],hook:'the problem and its practical solution',title:'a strategy worth applying',cap:'Execution beats vague advice.',hooks:[`The truth about ${topic} most people miss.`,`If you're struggling with ${topic}, start here.`,`The practical strategy behind ${topic}.`,`The biggest ${topic} mistake to avoid.`]},
+       food:{icon:['🍜','🍔','👨‍🍳'],tags:['#food','#foodie','#foodcontent'],hook:'the most satisfying visual or detail',title:'the bite worth talking about',cap:'Texture, taste, and the visual payoff.',hooks:[`The ${topic} detail that makes it worth trying.`,`POV: ${topic} looks even better up close.`,`Would you try ${topic}?`,`The part of ${topic} everyone notices first.`]},
+       general:{icon:['✨','👀','💡'],tags:['#creator','#content','#value'],hook:'the most unexpected detail',title:'an angle worth exploring',cap:'Clear idea, stronger execution.',hooks:[`The truth about ${topic} that might surprise you.`,`POV: you finally understand ${topic}.`,`Why ${topic} deserves a closer look.`,`The detail about ${topic} people overlook.`]}
+     };
+     const d = profiles[type] || profiles.general;
+     const platformKey = platform.toLowerCase();
+     const platformTag = platform.includes('Shorts') ? '#shorts' : platform.includes('Reel') ? '#reels' : platform.includes('TikTok') ? '#tiktok' : platform.includes('Twitter') ? '#x' : '#youtube';
+     const emoji = (set,index) => set[index % set.length];
+     const hooks = UTILS.pickUnique(d.hooks,3).map((x,i)=>`${x} ${emoji(d.icon,i)}`);
+     const titleBases = [`${topic}: ${d.title}`,`POV: ${topic} hits different`,`Why ${topic} deserves attention`,`${topic}: the detail you should notice`];
+     const titles = UTILS.pickUnique(titleBases,3).map((x,i)=>`${x} ${emoji(d.icon,(i+1)%d.icon.length)}`);
+     const caps = UTILS.pickUnique([d.cap,`Would you try this take on ${topic}?`,`Save this ${type} idea for later.`,`What would you change about ${topic}?`],3).map((x,i)=>`${x} ${emoji(d.icon,(i+2)%d.icon.length)}`);
+     const cleanTopic = topic.toLowerCase().replace(/[^a-z0-9]+/g,'').slice(0,20);
+     const tags = [...d.tags,platformTag]; if(cleanTopic) tags.push(`#${cleanTopic}`);
+     const uniqueTags = [...new Set(tags)];
+     const hashtags = UTILS.pickUnique(uniqueTags,Math.min(5,uniqueTags.length)).join(' ');
+     const platformTip = platformKey.includes('short') ? 'Front-load the visual hook and keep text readable inside the safe area.' : platformKey.includes('reel') ? 'Keep the opening visually immediate and use concise on-screen text.' : platformKey.includes('tiktok') ? 'Lead with the payoff or question, then keep the pacing conversational.' : platformKey.includes('twitter') ? 'Make the first line self-contained and easy to understand without extra context.' : 'Use a clear title and make the first lines explain the value quickly.';
+     return { hooks,titles,caps,hashtags,angle:`Lead with ${d.hook}. For ${platform}, establish the context quickly, then build to one clear payoff. ${platformTip}`,description:`Structure for ${platform}:\n\nHook: ${hooks[0]}\n\nValue: Explain the most useful or interesting part of ${topic} in one clear sequence.\n\nCTA: ${caps[1]}\n\n${hashtags}`,shortIdea:`0-2s: ${d.hook}.\n2-6s: Show the core ${topic} moment or value.\n6-10s: Add the strongest detail/payoff.\nEnd: ${caps[2]}`,alternates:`${titles[1]}\n${caps[1]}`};
+   }
+};
+
+/*
+========================================================================
+==
+    6. GENERATORS
+========================================================================
+== */
+const GENERATORS = {
+  content: async (e) => {
+     if (e) e.preventDefault();
+     const topic = document.getElementById('topic').value.trim();
+     const niche = document.getElementById('niche').value;
+     const platform = document.getElementById('contentType').value;
+     if(!topic) return;
+     
+     const btn = (e && e.submitter) ? e.submitter : document.querySelector('#content-generator .generate');
+     await UI.animateLoading(btn, 'content-out');
+     
+     const data = await ENGINE.generateContentPack(topic, niche, platform);
+     
+     ['hooks', 'titles', 'captions'].forEach(id => {
+         const ul = document.getElementById(id);
+         ul.innerHTML = '';
+         const items = id === 'captions' ? data.caps : data[id];
+         items.forEach(text => {
+             const li = document.createElement('li');
+             const span = document.createElement('span');
+             span.className = 'idea-text';
+             span.textContent = text;
+             
+             const favBtn = document.createElement('button');
+             favBtn.className = 'favorite-btn';
+             favBtn.type = 'button';
+             favBtn.innerHTML = 'Save';
+             favBtn.setAttribute('aria-label', 'Save to Favorites');
+             
+             favBtn.onclick = (ev) => {
+                  ev.stopPropagation();
+                  STORAGE.saveFavorite(text, niche, favBtn);
+             };
+             
+             li.append(span, favBtn);
+             li.title = 'Click anywhere to copy text';
+             li.onclick = async (ev) => {
+                  if (ev.target === favBtn) return;
+                  if (await UI.copyText(text)) {
+                      li.classList.add('copied');
+                      setTimeout(() => li.classList.remove('copied'), 1500);
+                  }
+             };
+             ul.appendChild(li);
+         });
+     });
+     
+     document.getElementById('hashtags').textContent = data.hashtags;
+     document.getElementById('description').textContent = data.description;
+     document.getElementById('angle').textContent = data.angle;
+     document.getElementById('shortIdea').textContent = data.shortIdea;
+     document.getElementById('alternates').textContent = data.alternates;
+     
+     UI.revealResults('content-out');
+     STORAGE.saveHistory({ topic, niche, platform, createdAt: new Date().toISOString() });
+   },
+   
+   edit: async (e) => {
+       e.preventDefault();
+       const topic = document.getElementById('editTopic').value.trim();
+       const style = document.getElementById('editStyle').value;
+       const platform = document.getElementById('editPlatform').value;
+       if(!topic) return;
+       
+       await UI.animateLoading(e.submitter, 'edit-out');
+       
+       const styleMap = {
+           'Cinematic': ['Open with a stabilizing slow-pan.', 'Use J-cuts for audio transitions.', 'Build intensity slowly toward the final shot.'],
+           'Phonk / Aggressive': ['Sync impacts strictly to the kick/snare.', 'Employ aggressive speed-ramping.', 'Use screen-shake on heavy drops.'],
+           'Minimal & Clean': ['Hard match-cuts.', 'No artificial transitions.', 'Keep color-grading natural and elegant.'],
+           'Emotional': ['Let establishing shots linger.', 'Use soft cross-fades sparingly.', 'Prioritize raw audio over loud music.'],
+           'Trending POV': ['Begin with prominent text overlay.', 'Keep pacing fast and conversational.', 'Ensure a seamless loop at the end.']
+       };
+       const cuts = styleMap[style] || styleMap['Minimal & Clean'];
+       
+       const text = `SUBJECT\n${topic}\n\nSTYLE PROFILE: ${style}\n\nDIRECTORIAL
+NOTES\n• ${cuts.join('\n• ')}\n\nPACING STRUCTURE\n0-2s: The Hook (Visually arrest the
+viewer)\n2-5s: The Setup (Establish context)\n5-9s: The Escalation (Build the pace)\n9-12s: The
+Climax (The payoff shot)\n\nPLATFORM ADAPTATION (${platform})\nOptimize aspect ratio,
+keep primary subjects dead-center, and avoid covering UI elements.`;
+       
+       UI.renderToolBlock('edit-out', 'Your Edit Outline', text);
+   },
+
+   music: async (e) => {
+       e.preventDefault();
+       const topic = document.getElementById('musicTopic').value.trim();
+       const mood = document.getElementById('musicMood').value;
+       const platform = document.getElementById('musicPlatform').value;
+       if(!topic) return;
+       
+       await UI.animateLoading(e.submitter, 'music-out');
+       
+       const d = {
+           'Hype': ['Aggressive trap, phonk, or heavy 808s', 'Hard hitting trap instrumental, gym phonk bass'],
+           'Dark & Gritty': ['Dark synthwave, cinematic bass', 'Dark cinematic tension, gritty synth'],
+           'Emotional / Cinematic': ['Ambient strings, soft piano', 'Cinematic emotional build, ambient soundscape'],
+           'Chill & Lo-Fi': ['Mellow lo-fi, relaxed jazz-hop', 'Chill lofi beat, smooth jazz instrumental'],
+           'Energetic': ['Upbeat pop, fast electronic', 'Energetic creator pop, fast EDM instrumental'],
+           'Epic': ['Orchestral hybrid, trailer music', 'Epic trailer hybrid instrumental, massive drums']
+       }[mood] || ['Background neutral', 'Creator safe background loop'];
+       
+       const text = `VISUAL CONTEXT\n${topic}\n\nSONIC DIRECTION
+(${mood})\n${d[0]}\n\nSEARCH QUERIES / KEYWORDS\n"${d[1]}"\n\nAUDIO-VISUAL
+SYNC\nUse the music's natural waveform to dictate your cuts. Anchor the strongest visual exactly when the beat drops or the melody shifts.\n\nPLATFORM TIP (${platform})\nCheck trending audio libraries natively in the app before using external tracks to maximize reach.`;                UI.renderToolBlock('music-out', 'Music & Audio Strategy', text);    },     blog: async (e) => {        e.preventDefault();        const topic = document.getElementById('blogTopic').value.trim();        const type = document.getElementById('blogType').value;        const aud = document.getElementById('blogAudience').value;        if(!topic) return;                await UI.animateLoading(e.submitter, 'blog-out');                const titles = UTILS.pickUnique([            `The Ultimate Guide to ${topic}`, `${topic}: What You Need to Know`,             `Stop Ignoring ${topic}: A Practical Approach`, `How to Master ${topic} this Year`        ], 3);                const text = `FORMAT: ${type} | AUDIENCE: ${aud}\n\nSEO TITLES\n1. ${titles[0]}\n2. ${titles[1]}\n3. ${titles[2]}\n\nSTRUCTURE\n\nIntroduction:\nHook the reader with a common problem related to ${topic}, then state exactly what they will learn.\n\nSection 1: The Core Concept\nDefine the basics clearly without jargon.\n\nSection 2: Practical Application\nBreak down 3 actionable steps or examples.\n\nSection 3: Common Pitfalls\nHighlight what mistakes people make and how to avoid them.\n\nConclusion & CTA:\nSummarize the main takeaway and ask the reader a specific question to drive comments.`;                UI.renderToolBlock('blog-out', 'Blog Outline', text);     },      vlog: async (e) => {        e.preventDefault();        const topic = document.getElementById('vlogTopic').value.trim();        const style = document.getElementById('vlogStyle').value;        const length = document.getElementById('vlogLength').value;        if(!topic) return;                await UI.animateLoading(e.submitter, 'vlog-out');                const text = `CONCEPT\n${topic}\n\nFORMAT\nStyle: ${style} | Length: ${length}\n\nNARRATIVE ARC\n\n1. The Cold Open (0:00 - 0:30)\nShow a highly engaging out-of-context clip from the climax of the vlog.\n\n2. The Setup (0:30 - 2:00)\nAddress the camera directly. "Today I'm trying to figure out [Topic], and here is the challenge..."\n\n3. The Journey (Middle)\nUse a mix of B-Roll (environmental context), A-Roll (talking head), and Point-Of-View shots. Capture authentic reactions rather than just narrating after the fact.\n\n4. The Payoff (Ending)\nResolve the initial challenge or question set up in the intro. Keep the sign-off brief and push viewers to your next video immediately.`;                UI.renderToolBlock('vlog-out', 'Vlog Sequence Plan', text);     } };  /* ======================================================================== ==    7. SMART TOOLS  ======================================================================== == */ const SMART = {
+   scoreHeuristics: (s) => {
+      const text = s.trim();
+      if (!text) return { clarity:0, curiosity:0, emotion:0, specificity:0, readability:0, overall:0 };
+      const words = text.split(/\s+/).filter(Boolean), len = words.length;
+      const sentenceCount = Math.max(1, (text.match(/[.!?]+/g) || []).length), avgSentence = len / sentenceCount;
+      const clarity = Math.min(100, 45 + (len >= 5 && len <= 24 ? 30 : 10) + (/[.!?]/.test(text) ? 10 : 0) + (avgSentence <= 18 ? 10 : 0));
+      const curiosity = Math.min(100, 35 + (/\b(why|how|what|when|pov|secret|truth|mistake|nobody|you|this|before|worth)\b/i.test(text) ? 35 : 8) + (/[?!]/.test(text) ? 20 : 0));
+      const emotion = Math.min(100, 35 + (/\b(insane|best|worst|love|hate|powerful|clean|crazy|emotional|unreal|epic|different|fail|win|surprising|hidden|secret)\b/i.test(text) ? 35 : 8) + (/!/.test(text) ? 15 : 0));
+      const specificity = Math.min(100, 35 + (len >= 7 ? 20 : 5) + (/\d|[A-Z][a-z]+/.test(text) ? 25 : 5) + (/\b(for|with|using|because|before|after)\b/i.test(text) ? 10 : 0));
+      const readability = Math.max(40, Math.min(100, 100 - Math.max(0, avgSentence - 14) * 3));
+      const overall = Math.round((clarity + curiosity + emotion + specificity + readability) / 5);
+      return { clarity, curiosity, emotion, specificity, readability, overall };
+   },
+   insights: (r) => {
+      const out=[];
+      if(r.clarity<75) out.push('Make the main idea easier to understand in the first line.');
+      if(r.curiosity<75) out.push('Add a question, contrast, open loop, or specific reason to keep watching.');
+      if(r.emotion<75) out.push('Introduce a stronger feeling, tension, surprise, or clear point of view.');
+      if(r.specificity<75) out.push('Add a concrete detail, number, example, object, or named context.');
+      if(r.readability<75) out.push('Shorten long sentences and remove unnecessary wording.');
+      if(!out.length) out.push('Strong structure. Test multiple wording variations rather than relying on one version.');
+      return out;
+   },
+   analyzeContent: () => {
+      const input=document.getElementById('analyzerInput').value, r=SMART.scoreHeuristics(input), out=document.getElementById('analyzerOutput');
+      if(!r.overall){out.innerHTML='<div class="history-item reveal-soft is-visible">Please paste some content first.</div>';return;}
+      const rows=['Clarity','Curiosity','Emotion','Specificity','Readability'].map(k=>`<div class="score-row"><span>${k}</span><span class="score">${r[k.toLowerCase()]} / 100</span></div>`).join('');
+      const suggestions=SMART.insights(r).map(x=>`<li>${UTILS.escapeHTML(x)}</li>`).join('');
+      out.innerHTML=`${rows}<div class="score-row"><strong>Overall Strength</strong><span class="score" style="background:var(--accent-gold);color:#fff;">${r.overall} / 100</span></div><div class="history-item reveal-scale is-visible" style="margin-top:20px;background:var(--surface);border-color:var(--accent-primary);"><strong>Actionable Feedback</strong><ul style="margin:12px 0 0 18px;display:grid;gap:8px;">${suggestions}</ul><small style="color:var(--text-muted);display:block;margin-top:12px;">Heuristic scoring only — not a prediction of platform performance.</small></div>`;
+   },
+   testAB: () => {
+      const aText=document.getElementById('abA').value.trim(), bText=document.getElementById('abB').value.trim(), out=document.getElementById('abOutput');
+      if(!aText||!bText){out.innerHTML='<div class="history-item reveal-soft is-visible">Enter both variations to compare.</div>';return;}
+      const A=SMART.scoreHeuristics(aText),B=SMART.scoreHeuristics(bText);
+      const winner=A.overall===B.overall?'Tie':A.overall>B.overall?'Option A':'Option B';
+      const dims=['clarity','curiosity','emotion','specificity','readability'];
+      const comparison=dims.map(k=>`<div class="score-row"><span>${k[0].toUpperCase()+k.slice(1)}</span><span class="score">A ${A[k]} · B ${B[k]}</span></div>`).join('');
+      const reasons=[]; dims.forEach(k=>{if(A[k]!==B[k])reasons.push(`${k}: ${A[k]>B[k]?'A':'B'} is stronger`);});
+      out.innerHTML=`${comparison}<div class="score-row"><strong>Overall</strong><span class="score">A ${A.overall} · B ${B.overall}</span></div><div class="history-item reveal-scale is-visible" style="margin-top:20px;background:var(--surface);border-color:var(--accent-primary);"><strong>${winner}</strong>${winner==='Tie'?' is structurally tied.':' leads on the selected heuristics.'}<br><small style="color:var(--text-muted);display:block;margin-top:8px;">${UTILS.escapeHTML(reasons.slice(0,3).join(' · ')||'The two versions are very similar across the measured dimensions.')}</small></div>`;
+   }
+};
+
+/* ======================================================================== ==    8. BOOT  ======================================================================== == */ function BOOT() {     STORAGE.renderHistory();     STORAGE.renderFavorites();     UI.initScrollAnimations();     document.querySelectorAll('form').forEach(f => f.setAttribute('novalidate', 'true')); }  if (document.readyState === 'loading') {     document.addEventListener('DOMContentLoaded', BOOT, { once: true }); } else {     BOOT(); } </script>
+</body>
+</html>
