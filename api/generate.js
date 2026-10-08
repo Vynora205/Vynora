@@ -1,154 +1,19 @@
-// Vynora V1.5 — Secure AI API
-// Vercel Serverless Function
+import { GoogleGenAI } from "@google/genai";
 
-export default async function handler(req, res) {
-  // CORS
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  // OPTIONS / CORS preflight
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
-
-  // Health check
-  if (req.method === "GET") {
-    return res.status(200).json({
-      ok: true,
-      service: "vynora-ai"
-    });
-  }
-
-  // Only POST allowed for AI generation
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
-  }
-
-  try {
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-      return res.status(500).json({
-        error: "GEMINI_API_KEY is not configured."
-      });
-    }
-
-    const body = req.body || {};
-
-    const action = body.action || "generate";
-    const prompt = body.prompt || "";
-
-    if (!prompt.trim()) {
-      return res.status(400).json({
-        error: "Prompt is required."
-      });
-    }
-
-    const model =
-      process.env.GEMINI_MODEL || "gemini-2.5-flash";
-
-    let finalPrompt = prompt;
-
-    if (action === "modify") {
-      finalPrompt = `
-You are Vynora, a premium AI content assistant.
-
-Improve the following existing content according to the requested action.
-
-Action:
-${body.modifier || "improve"}
-
-Existing content:
-${prompt}
-
-Rules:
-- Keep the original meaning.
-- Make the result useful and specific.
-- Avoid unnecessary filler.
-- Return only the improved content.
-`;
-    } else {
-      finalPrompt = `
-You are Vynora, a premium AI content creation assistant.
-
-Create high-quality, practical content based on the user's request.
-
-Rules:
-- Be specific and useful.
-- Match the requested platform, niche, topic and style.
-- Avoid generic filler.
-- Keep the output well structured.
-- Do not invent facts when factual accuracy matters.
-- Return clean text suitable for direct use.
-
-User request:
-${prompt}
-`;
-    }
-
-    const url =
-      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [
-              {
-                text: finalPrompt
-              }
-            ]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.8,
-          topP: 0.95,
-          maxOutputTokens: 4096
-        }
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Gemini API error:", data);
-
-      return res.status(response.status).json({
-        error:
-          data?.error?.message ||
-          "Gemini API request failed."
-      });
-    }
-
-    const result =
-      data?.candidates?.[0]?.content?.parts
-        ?.map(part => part.text || "")
-        .join("")
-        .trim();
-
-    if (!result) {
-      return res.status(502).json({
-        error: "Gemini returned an empty response."
-      });
-    }
-
-    return res.status(200).json({
-      result
-    });
-
-  } catch (error) {
-    console.error("Vynora API error:", error);
-
-    return res.status(500).json({
-      error: "Internal server error."
-    });
-  }
-        }
+const MODEL = "gemini-3.8-flash";
+const CONTENT_SCHEMA={type:"object",properties:{title:{type:"string"},tags:{type:"array",items:{type:"string"},minItems:5,maxItems:15},caption:{type:"string"},description:{type:"string"}},required:["title","tags","caption","description"],additionalProperties:false};
+const TAG_SCHEMA={type:"object",properties:{tags:{type:"array",items:{type:"string"},minItems:1,maxItems:30},strategy:{type:"string"}},required:["tags","strategy"],additionalProperties:false};
+const ANGLES=["curiosity","contrarian","POV","story","transformation","power","utility","emotion"];
+const TAG_STRATEGIES=["broad+specific","search-intent","community","niche-authority","trend-aware","long-tail","minimal-high-relevance"];
+const clean=s=>String(s||"").replace(/^```json\s*/i,"").replace(/```$/i,"").trim();
+const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+const similarity=(a,b)=>{const A=new Set(norm(JSON.stringify(a)).split(/\s+/).filter(x=>x.length>2)),B=new Set(norm(JSON.stringify(b)).split(/\s+/).filter(x=>x.length>2));if(!A.size||!B.size)return 0;let n=0;for(const x of A)if(B.has(x))n++;return n/Math.max(A.size,B.size)};
+const tags=a=>[...new Set((Array.isArray(a)?a:[]).map(x=>String(x).trim()).filter(Boolean).map(x=>x.startsWith("#")?x:"#"+x.replace(/^#+/g,"").replace(/\s+/g,"")))];
+async function run(ai,prompt,schema){const r=await ai.models.generateContent({model:MODEL,contents:prompt,config:{responseMimeType:"application/json",responseSchema:schema,temperature:1}});return JSON.parse(clean(r.text));}
+function validContent(r){return r&&r.title&&r.caption&&r.description&&Array.isArray(r.tags)&&r.tags.length>=5}
+function validTags(r){return r&&Array.isArray(r.tags)&&r.tags.length&&typeof r.strategy==="string"}
+export default async function handler(req,res){res.setHeader("Access-Control-Allow-Origin","*");res.setHeader("Access-Control-Allow-Headers","Content-Type");res.setHeader("Access-Control-Allow-Methods","GET,POST,OPTIONS");if(req.method==="OPTIONS")return res.status(204).end();if(req.method==="GET")return res.status(200).json({ok:true,service:"vynora-ai-v2",model:MODEL});if(req.method!=="POST")return res.status(405).json({error:"Method not allowed"});if(!process.env.GEMINI_API_KEY)return res.status(503).json({error:"GEMINI_API_KEY is not configured"});
+try{const b=req.body||{},action=b.action||"generate",input=b.input||{},regen=Math.max(0,Number(b.regenerationCount)||0),previous=b.previousResult||null,ai=new GoogleGenAI({apiKey:process.env.GEMINI_API_KEY});
+if(action==="tags"){const count=Math.min(30,Math.max(1,Number(input.count)||12)),strategy=TAG_STRATEGIES[regen%TAG_STRATEGIES.length];let r=await run(ai,`You are Vynora V2 Tag Strategist. Generate up to ${count} highly relevant hashtags/tags for topic: ${input.topic}. Platform: ${input.platform}. Niche: ${input.niche}. Strategy: ${strategy}. Do not pad with unrelated generic tags. Regeneration must be materially different. ${previous?`Avoid this previous output: ${JSON.stringify(previous)}`:""} Return only the requested JSON.`,TAG_SCHEMA);r.tags=tags(r.tags).slice(0,count);if(!validTags(r))throw Error("Invalid tags");if(previous&&similarity(r,previous)>.78){r=await run(ai,`Regenerate the tag set. It is too similar to the previous result. Use strategy ${TAG_STRATEGIES[(regen+1)%TAG_STRATEGIES.length]}. Topic: ${input.topic}. Platform: ${input.platform}. Niche: ${input.niche}. Previous: ${JSON.stringify(r)}`,TAG_SCHEMA);r.tags=tags(r.tags).slice(0,count)}return res.status(200).json({ok:true,result:r,model:MODEL});}
+const angle=ANGLES[regen%ANGLES.length];let r=await run(ai,`You are Vynora V2 Creator Strategist. Generate a coherent package for topic: ${input.topic}. Content type/platform: ${input.type}. Niche: ${input.niche}. Creative angle: ${angle}. Make title specific, tags relevant, caption natural and description useful. Never invent facts, fake statistics, or keyword-stuff. Regeneration must change the creative premise, wording, structure and tag mix, not just synonyms. ${previous?`Avoid copying this previous output: ${JSON.stringify(previous)}`:""} Return only JSON matching the schema.`,CONTENT_SCHEMA);r.tags=tags(r.tags).slice(0,15);if(!validContent(r))throw Error("Invalid content");if(previous&&similarity(r,previous)>.78){r=await run(ai,`Create a substantially different alternative. New angle: ${ANGLES[(regen+1)%ANGLES.length]}. Change title construction, caption rhythm, description framing and tags. Topic: ${input.topic}. Platform: ${input.type}. Niche: ${input.niche}. Previous candidate: ${JSON.stringify(r)}`,CONTENT_SCHEMA);r.tags=tags(r.tags).slice(0,15)}return res.status(200).json({ok:true,result:r,model:MODEL});
+}catch(e){console.error(e);return res.status(500).json({error:"AI generation failed",detail:process.env.NODE_ENV==="development"?e.message:undefined});}}
